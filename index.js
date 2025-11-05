@@ -32,8 +32,6 @@ client.on('interactionCreate', async interaction => {
       .setColor('#00BFFF')
       .setTitle(title)
       .setDescription(description)
-      .setTimestamp()
-      .setFooter({ text: `สร้างโดย ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() });
 
     if (image) {
       embed.setImage(image);
