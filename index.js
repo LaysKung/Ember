@@ -32,6 +32,8 @@ client.on('interactionCreate', async interaction => {
       .setColor('#00BFFF')
       .setTitle(title)
       .setDescription(description)
+      .setTimestamp()
+      .setFooter({ text: `สร้างโดย ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() });
 
     if (image) {
       embed.setImage(image);
@@ -39,6 +41,13 @@ client.on('interactionCreate', async interaction => {
 
     await interaction.reply({ embeds: [embed] });
   }
+
+  if (interaction.guild.ownerId !== interaction.user.id) return interaction.reply({ content: 'คุณไม่มีสิทธิ์ไช้คำสั่งนี้ 👑', ephemeral: true }
+
+    
+  ); 
+
 });
+
 
 client.login(process.env.BOT_TOKEN);
