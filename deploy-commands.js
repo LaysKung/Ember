@@ -39,3 +39,22 @@ const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
     console.error(error);
   }
 })();
+
+{
+  name: 'all',
+  description: 'ส่งข้อความส่วนตัว (DM) ถึงทุกคนในเซิร์ฟเวอร์',
+  options: [
+    {
+      name: 'title',
+      description: 'หัวข้อของข้อความ',
+      type: 3,
+      required: true,
+    },
+    {
+      name: 'message',
+      description: 'ข้อความที่จะส่ง',
+      type: 3,
+      required: true,
+    },
+  ],
+}
