@@ -48,6 +48,42 @@ client.on('interactionCreate', async interaction => {
   ); 
 
 });
+if (commandName === 'all') {
+  const title = interaction.options.getString('title');
+  const message = interaction.options.getString('message');
+
+  // สร้าง Embed
+  const embed = new EmbedBuilder()
+    .setColor('#00BFFF')
+    .setTitle(title)
+    .setDescription(message)
+    .setFooter({ 
+      text: `ส่งโดย ${interaction.user.username}`, 
+      iconURL: interaction.user.displayAvatarURL() 
+    });
+
+  // ตอบกลับในแชทว่ากำลังส่ง
+  await interaction.reply({ content: '📨 กำลังส่งข้อความไปยังสมาชิกทุกคน...', ephemeral: true });
+
+  const guild = interaction.guild;
+
+  // ดึงสมาชิกทั้งหมด
+  await guild.members.fetch();
+
+  let sentCount = 0;
+  for (const member of guild.members.cache.values()) {
+    if (!member.user.bot) {
+      try {
+        await member.send({ embeds: [embed] });
+        sentCount++;
+      } catch (err) {
+        console.log(`❌ ส่งหา ${member.user.tag} ไม่ได้`);
+      }
+    }
+  }
+
+  await interaction.followUp({ content: `✅ ส่งข้อความไปแล้วทั้งหมด ${sentCount} คน`, ephemeral: true });
+}
 
 
 client.login(process.env.BOT_TOKEN);
